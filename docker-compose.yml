@@ -1,0 +1,39 @@
+version: '3'
+services:
+    project_web:
+        container_name: project_web
+        build:
+            context: ./
+            dockerfile: ./.docker/web.docker
+        volumes:
+            - ./laravel:/var/www
+        ports:
+            - "8000:8000"
+        links:
+            - project_app
+
+    project_app:
+        container_name: project_app
+        build:
+            context: ./
+            dockerfile: ./.docker/app.docker
+        volumes:
+            - ./laravel:/var/www
+        links:
+            - project_database
+        environment:
+            - "DB_PORT=${DB_PORT}"
+            - "DB_HOST=project_database"
+
+    project_database:
+        container_name: project_database
+        image: mysql:5.7
+        environment:
+            - "MYSQL_USER=${DB_USERNAME}"
+            - "MYSQL_DATABASE=${DB_DATABASE}"
+            - "MYSQL_ROOT_PASSWORD=${DB_PASSWORD}"
+            - "MYSQL_PASSWORD=${DB_PASSWORD}"
+        ports:
+            - "3306:3306"
+        volumes:
+            - "./.data/mysql:/var/lib/mysql"
