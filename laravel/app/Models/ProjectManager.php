@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -26,4 +26,9 @@ class ProjectManager extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function projects()
+    {
+        return $this->belongsToMany('App\Models\Project', 'project_manager_project');
+    }
 }

@@ -75,11 +75,11 @@ return [
     'providers' => [
         'project_managers' => [
             'driver' => 'eloquent',
-            'model' => App\ProjectManager::class,
+            'model' => App\Models\ProjectManager::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => App\Admin::class,
+            'model' => App\Models\Admin::class,
         ],
 
         // 'users' => [
