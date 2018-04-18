@@ -92,6 +92,6 @@ class AdminRegisterController extends Controller
         $this->guard('admin')->login($admin);
 
         //Redirects sellers
-        return redirect($this->redirectPath);
+        return redirect($this->redirectTo);
     }
 }

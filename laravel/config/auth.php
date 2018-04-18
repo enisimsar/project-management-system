@@ -15,7 +15,7 @@ return [
 
     'defaults' => [
         'guard' => 'web',
-        'passwords' => 'users',
+        'passwords' => 'project_managers',
     ],
 
     /*
@@ -38,12 +38,12 @@ return [
     'guards' => [
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'project_managers',
         ],
 
         'api' => [
             'driver' => 'token',
-            'provider' => 'users',
+            'provider' => 'project_managers',
         ],
         'admin' => [
             'driver' => 'session',
@@ -73,9 +73,9 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'project_managers' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => App\ProjectManager::class,
         ],
         'admins' => [
             'driver' => 'eloquent',
@@ -104,8 +104,8 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'project_managers' => [
+            'provider' => 'project_managers',
             'table' => 'password_resets',
             'expire' => 60,
         ],
