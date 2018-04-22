@@ -1,0 +1,13 @@
+.app-categories {
+    margin: 10px;
+    padding: 0 120px;
+    height: calc(45vh - 20px);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .category-card-container {
+        margin:0 15px;
+        flex-grow: 1;
+    }
+}

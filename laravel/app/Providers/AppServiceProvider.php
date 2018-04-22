@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Auth;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
+        view()->composer('admin.parent', function ($view) {
+            $view->with([
+                'authUser' =>  Auth::guard('admin')->user(),
+            ]);
+        });
     }
 
     /**
