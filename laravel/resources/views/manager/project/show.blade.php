@@ -32,11 +32,6 @@
       <div class="box-header with-border">
         <h4 class="box-title">Project Details</h4>
         <div class="box-tools">
-          <div class="btn-group">
-            <a href="{{ route('admin.project.edit', $project->id) }}" class="btn btn-warning btn-sm">
-              <i class="fa fa-pencil"></i>
-            </a>
-          </div>
         </div>
       </div>
       <!-- /.box-header -->

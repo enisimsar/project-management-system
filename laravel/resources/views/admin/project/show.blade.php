@@ -26,7 +26,7 @@
 
 @section('content')
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-6">
     <!-- Horizontal Form -->
     <div class="box box-primary">
       <div class="box-header with-border">
@@ -52,13 +52,17 @@
               <th>Description</th>
               <td>{{ $project->description }}</td>
             </tr>
+            <tr>
+              <th>Started At</th>
+              <td>{{ date('d.m.Y', strtotime($project->started_at)) }}</td>
+            </tr>
           </tbody>
         </table>
       </div>
       <!-- /.box-body -->
     </div>
   </div>
-  <div class="col-md-5">
+  <div class="col-md-6">
     <!-- Horizontal Form -->
     <div class="box box-primary">
       <div class="box-header with-border">
@@ -67,8 +71,36 @@
       <!-- /.box-header -->
       <!-- form start -->
       <div class="box-body">
-        <h4>Türkçe</h4>
-        <h4>İngilizce</h4>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Started At</th>
+              <th>Duration</th>
+              <th>Process</th>
+            </tr>
+          </thead>
+          <tbody id="manager-container">
+            @forelse ($project->tasks as $task)
+            <tr id="task-{{ $task->id }}">
+              <td>{{ $task->name }}</td>
+              <td>{{ $task->description }}</td>
+              <td>{{ date('d.m.Y', strtotime($task->started_at)) }}</td>
+              <td>{{ $task->duration }} Days</td>
+              <td>
+                <button class="btn btn-danger btn-xs" onclick="deleteTask({{ $task->id }}, {{ $project->id }})"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+            @empty
+            <tr>
+              <th colspan="5">
+                There is no task for this project.
+              </th>
+            </tr>
+            @endforelse
+          </tbody>
+        </table>
       </div>
       <!-- /.box-body -->
     </div>
@@ -88,11 +120,11 @@
       <!-- form start -->
       <div class="box-body">
           <div class="row">
-            <div class="col-md-11">
+            <div class="col-md-10">
               {!! Form::select('manager_id', $managers, null, ['class' => 'select2 form-control'])
               !!}
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
               <button id="add-manager" project-id="{{ $project->id }}" class="btn btn-success btn-sm">
                 <i class="fa fa-plus"></i>
               </button>

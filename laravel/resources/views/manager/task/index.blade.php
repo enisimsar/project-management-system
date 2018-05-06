@@ -41,7 +41,7 @@
                 <th>Description</th>
                 <th>Started At</th>
                 <th>Duration</th>
-                <th class="three-button">Process</th>
+                <th class="four-button">Process</th>
               </tr>
             </thead>
             <tbody>
@@ -67,6 +67,9 @@
                       title="Not Completed">
                       <i class="fa fa-check-square-o"></i>
                     </button>
+                    <a class="edit btn btn-primary btn-xs" href="{{ route("manager.task.show", $task->id) }}" title="Show">
+                        <i class="fa fa-search"></i>
+                      </a>
                       <a class="edit btn btn-warning btn-xs" href="{{ route("manager.task.edit", $task->id) }}" title="Edit">
                         <i class="fa fa-pencil"></i>
                       </a>

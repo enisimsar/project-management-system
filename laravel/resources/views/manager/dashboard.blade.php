@@ -18,27 +18,39 @@
 @section('content')
 <!-- Small boxes (Stat box) -->
 <div class="row">
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-lg-4 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-aqua">
+    <div class="small-box bg-red">
       <div class="inner">
         <h3>{{ $manager->projects->count() }}</h3>
         <p>Project</p>
       </div>
       <div class="icon">
-        <i class="ion ion-ios-body"></i>
+        <i class="ion ion-ios-book"></i>
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-lg-4 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-aqua">
+    <div class="small-box bg-green">
       <div class="inner">
         <h3>{{ App\Models\Task::count() }}</h3>
         <p>Task</p>
       </div>
       <div class="icon">
-        <i class="ion ion-ios-body"></i>
+        <i class="ion ion-paperclip"></i>
+      </div>
+    </div>  
+  </div>
+  <div class="col-lg-4 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-teal">
+      <div class="inner">
+        <h3>{{ App\Models\Employee::count() }}</h3>
+        <p>Employee</p>
+      </div>
+      <div class="icon">
+        <i class="ion ion-ios-people"></i>
       </div>
     </div>  
   </div>

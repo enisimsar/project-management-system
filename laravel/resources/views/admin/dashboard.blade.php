@@ -18,41 +18,41 @@
 @section('content')
 <!-- Small boxes (Stat box) -->
 <div class="row">
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-lg-4 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-aqua">
+    <div class="small-box bg-olive">
       <div class="inner">
         <h3>{{ App\Models\ProjectManager::count() }}</h3>
         <p>Project Manager</p>
       </div>
       <div class="icon">
-        <i class="ion ion-ios-body"></i>
+        <i class="ion ion-person"></i>
       </div>
     </div>
   </div>
   <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-lg-4 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-orange">
+    <div class="small-box bg-red">
       <div class="inner">
         <h3>{{ App\Models\Project::count() }}</h3>
         <p>Project</p>
       </div>
       <div class="icon">
-        <i class="ion ion-ios-body"></i>
+        <i class="ion ion-ios-book"></i>
       </div>
     </div>
   </div>
   <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
+  <div class="col-lg-4 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-orange">
+    <div class="small-box bg-teal">
       <div class="inner">
         <h3>{{ App\Models\Employee::count() }}</h3>
         <p>Employee</p>
       </div>
       <div class="icon">
-        <i class="ion ion-ios-body"></i>
+        <i class="ion ion-ios-people"></i>
       </div>
     </div>
   </div>

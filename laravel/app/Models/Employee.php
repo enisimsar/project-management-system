@@ -19,4 +19,10 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\Models\Task', 'employee_task');
     }
+
+    public static function toSelect($placeholder = null)
+    {
+        $res = static::orderBy('name')->pluck('name', 'id');
+        return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
+    }
 }

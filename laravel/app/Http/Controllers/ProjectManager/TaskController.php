@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\Project;
+use App\Models\Employee;
 
 class TaskController extends Controller
 {
@@ -21,7 +22,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $tasks = Task::orderBy('name');
+        $projects = \Auth::guard('web')->user()->projects();
+        $project_ids = [];
+        foreach ($projects as $project) {
+            $project_ids[] = $project->id;
+        }
+        $tasks = Task::whereIn('project_id', $project_ids)->orderBy('name');
         $tasks = $tasks->paginate(25);
 
         return view('manager.task.index', compact('tasks'));
@@ -72,6 +78,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        $employees = Employee::toSelect($placeholder = 'Please, select a Employee.');
+
+        return view('manager.task.show', compact(['task', 'employees']));
     }
 
     /**
