@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Traits\Completed;
 
 class ProjectManager extends Authenticatable
 {
@@ -30,5 +31,11 @@ class ProjectManager extends Authenticatable
     public function projects()
     {
         return $this->belongsToMany('App\Models\Project', 'project_manager_project');
+    }
+
+    public static function toSelect($placeholder = null)
+    {
+        $res = static::orderBy('name')->pluck('name', 'id');
+        return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
     }
 }

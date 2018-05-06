@@ -1,4 +1,4 @@
-<nav class="navbar navbar-static-top" role="navigation">
+<nav class="navbar navbar-static-top" role="navigation" style="background-color:#FB8C00">
   <!-- Sidebar toggle button-->
   <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
     <span class="sr-only">Toggle navigation</span>
@@ -31,12 +31,12 @@
               <a href="#" class="btn btn-default btn-flat">Profile</a>
             </div>
             <div class="pull-right">
-              <a href="{{ url('/admin/logout') }}" class="btn btn-default btn-flat"
+              <a href="{{ url('/manager/logout') }}" class="btn btn-default btn-flat"
                   onclick="event.preventDefault();
                            document.getElementById('logout-form').submit();">
                   <i class="fa fa-sign-out"></i> Log Out
               </a>
-              <form id="logout-form" action="{{ url('/admin/logout') }}" method="POST" style="display: none;">
+              <form id="logout-form" action="{{ url('/manager/logout') }}" method="POST" style="display: none;">
                   {{ csrf_field() }}
               </form>
 

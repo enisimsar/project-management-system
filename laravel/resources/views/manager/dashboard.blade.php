@@ -1,4 +1,4 @@
-@extends('admin.parent')
+@extends('manager.parent')
 
 @section('title', 'Control Panel')
 
@@ -9,7 +9,7 @@
     <small>Over All</small>
   </h1>
   <ol class="breadcrumb">
-    <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> Home Page</a></li>
+    <li><a href="{{ route('manager.dashboard') }}"><i class="fa fa-home"></i> Home Page</a></li>
     <li class="active">Control Panel</li>
   </ol>
 </section>
@@ -22,20 +22,7 @@
     <!-- small box -->
     <div class="small-box bg-aqua">
       <div class="inner">
-        <h3>{{ App\Models\ProjectManager::count() }}</h3>
-        <p>Project Manager</p>
-      </div>
-      <div class="icon">
-        <i class="ion ion-ios-body"></i>
-      </div>
-    </div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-orange">
-      <div class="inner">
-        <h3>{{ App\Models\Project::count() }}</h3>
+        <h3>{{ $manager->projects->count() }}</h3>
         <p>Project</p>
       </div>
       <div class="icon">
@@ -43,18 +30,17 @@
       </div>
     </div>
   </div>
-  <!-- ./col -->
   <div class="col-lg-3 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-orange">
+    <div class="small-box bg-aqua">
       <div class="inner">
-        <h3>{{ App\Models\Employee::count() }}</h3>
-        <p>Employee</p>
+        <h3>{{ App\Models\Task::count() }}</h3>
+        <p>Task</p>
       </div>
       <div class="icon">
         <i class="ion ion-ios-body"></i>
       </div>
-    </div>
+    </div>  
   </div>
   <!-- ./col -->
 </div>

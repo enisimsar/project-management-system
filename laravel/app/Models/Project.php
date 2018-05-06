@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Base;
 use App\Traits\DatePicker;
+use App\Traits\Completed;
 
 class Project extends Model
 {
-    use Base, DatePicker;
+    use Base, DatePicker, Completed;
 
     protected $table = 'projects';
 

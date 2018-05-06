@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Base;
 use App\Traits\DatePicker;
+use App\Traits\Completed;
 
 class Task extends Model
 {
-    use Base, DatePicker;
+    use Base, DatePicker, Completed;
 
     protected $table = 'tasks';
 
@@ -24,5 +25,11 @@ class Task extends Model
     public function employees()
     {
         return $this->belongsToMany('App\Models\Employee', 'employee_task');
+    }
+
+    public static function toSelect($placeholder = null)
+    {
+        $res = static::orderBy('name')->pluck('name', 'id');
+        return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
     }
 }

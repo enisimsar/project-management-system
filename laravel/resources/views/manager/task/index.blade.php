@@ -1,6 +1,6 @@
-@extends('admin.parent')
+@extends('manager.parent')
 
-@section('title', 'Project Managers')
+@section('title', 'Tasks')
 
 @section('styles')
 @endsection
@@ -8,12 +8,12 @@
 @section('header')
   <section class="content-header">
     <h1>
-      Project Managers
-      <small> Show all Project Managers in the system. </small>
+      Tasks
+      <small> Show all tasks in the system </small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-home"></i> Home Page</a></li>
-      <li class="active">Project Managers</li>
+      <li class="active">Tasks</li>
     </ol>
   </section>
 @endsection
@@ -23,11 +23,11 @@
     <div class="col-xs-12">
       <div class="box">
         <div class="box-header">
-          <h3 class="box-title">{{ $managers->total() }} Project Manager</h3>
+          <h3 class="box-title">{{ $tasks->total() }} Tasks</h3>
           <div class="box-tools">
             <div class="btn-group">
-              <a href="{{ route('admin.blank') }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-globe"></i></a>
-              <a href="{{ route('admin.manager.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+              <a href="{{ route('manager.blank') }}" target="_blank" class="btn btn-success btn-sm"><i class="fa fa-globe"></i></a>
+              <a href="{{ route('manager.task.create') }}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
             </div>
           </div>
         </div>
@@ -43,20 +43,20 @@
               </tr>
             </thead>
             <tbody>
-              @forelse ($managers as $manager)
-                <tr id="manager-{{ $manager->id }}">
-                  <td>{{ $manager->id }}</td>
-                  <td>{{ $manager->name }}</td>
-                  <td>{{ $manager->email }}</td>
+              @forelse ($tasks as $task)
+                <tr id="task-{{ $task->id }}">
+                  <td>{{ $task->id }}</td>
+                  <td>{{ $task->name }}</td>
+                  <td>{{ $task->email }}</td>
                   <td>
                     <div class="btn-group">
-                      <a class="edit btn btn-primary btn-xs" href="{{ route("admin.manager.show", $manager->id) }}" title="Show">
+                      <a class="edit btn btn-primary btn-xs" href="{{ route("manager.task.show", $task->id) }}" title="Show">
                         <i class="fa fa-search"></i>
                       </a>
-                      <a class="edit btn btn-warning btn-xs" href="{{ route("admin.manager.edit", $manager->id) }}" title="Edit">
+                      <a class="edit btn btn-warning btn-xs" href="{{ route("manager.task.edit", $task->id) }}" title="Edit">
                         <i class="fa fa-pencil"></i>
                       </a>
-                      <button class="delete btn btn-danger btn-xs" delete-id="{{ $manager->id }}" delete-name="{{ $manager->name }}" title="Remove">
+                      <button class="delete btn btn-danger btn-xs" delete-id="{{ $task->id }}" delete-name="{{ $task->name }}" title="Remove">
                         <i class="fa fa-trash"></i>
                       </button>
                     </div>
@@ -65,7 +65,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="6">There is no Project Manager in the system.</td>
+                  <td colspan="6">There is no Task in the system.</td>
                 </tr>
               @endforelse
             </tbody>
@@ -73,7 +73,7 @@
         </div>
         <!-- /.box-body -->
         <div class="box-footer">
-          {{ $managers->links() }}
+          {{ $tasks->links() }}
         </div>
         <!-- /.box-footer -->
       </div>
@@ -84,6 +84,6 @@
 
 @section('scripts')
   <script type="text/javascript">
-  deleteItem("manager", " will be removed the system?");
+  deleteItem("task", " will be removed the system?");
   </script>
 @endsection

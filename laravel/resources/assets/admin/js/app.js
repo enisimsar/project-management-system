@@ -114,6 +114,85 @@ function deleteItem(slug, message, deleteClass = "delete") {
   });
 }
 
+function approveItem(slug, completeMessage, notComleteMessage, callback, completeClass = "complete") {
+  $('.' + completeClass).on('click', function (e) {
+    var id = $(this).attr('complete-id');
+    var name = $(this).attr('complete-name');
+    var complete = ($(this).attr('is-complete') == '1' ? 1 : 0);
+    $.ajax({
+      url: "/admin/" + slug + "/" + id + "/complete",
+      method: "PUT",
+      dataType: "json",
+      data: {
+        'complete': complete
+      },
+      success: function (result) {
+        if (approval) {
+          $("#complete-" + slug + "-" + id).addClass('hidden');
+          $("#uncomplete-" + slug + "-" + id).removeClass('hidden');
+        } else {
+          $("#complete-" + slug + "-" + id).removeClass('hidden');
+          $("#uncomplete-" + slug + "-" + id).addClass('hidden');
+        }
+
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+        ajaxError(xhr, ajaxOptions, thrownError);
+      }
+    });
+
+    // swal({
+    //   title: "Emin misin?",
+    //   text:  "'" + name + "' " + approveMessage,
+    //   type: "warning",
+    //   confirmButtonColor: "#DD6B55",
+    //   confirmButtonText: "Evet, " + (approval ? 'onayla!' : 'onayı kaldır!'),
+    //   showCancelButton: true,
+    //   cancelButtonText: "Hayır",
+    //   showLoaderOnConfirm: true,
+    //   preConfirm: function () {
+    //     return new Promise(function (resolve, reject) {
+    //       $.ajax({
+    //         url: "/admin/" + slug + "/" + id + "/approve",
+    //         method: "PUT",
+    //         dataType: "json",
+    //         data: { 'approve': approval },
+    //         success: function(result){
+    //           resolve()
+    //         },
+    //         error: function (xhr, ajaxOptions, thrownError) {
+    //           ajaxError(xhr, ajaxOptions, thrownError);
+    //         }
+    //       });
+    //     })
+    //   },
+    //   allowOutsideClick: false,
+    // }).then(function () {
+    //   if (typeof callback === "function") {
+    //     callback(approval, id, name)
+    //   }
+    //   if (approval) {
+    //     $("#approve-" + slug + "-" + id).addClass('hidden');
+    //     $("#unapprove-" + slug + "-" + id).removeClass('hidden');
+    //     swal({
+    //       title: "Başarıyla Onaylandı!",
+    //       type: "success",
+    //       confirmButtonText: "Tamam",
+    //     });
+    //   } else {
+    //     $("#approve-" + slug + "-" + id).removeClass('hidden');
+    //     $("#unapprove-" + slug + "-" + id).addClass('hidden');
+    //     swal({
+    //       title: "Başarıyla Onayı Kaldırıldı!",
+    //       type: "success",
+    //       confirmButtonText: "Tamam",
+    //     });
+    //   }
+    // })
+  });
+}
+
+
 function ajaxError(xhr, ajaxOptions, thrownError) {
   message = "Unexpected Error!";
   console.log("XHR:");

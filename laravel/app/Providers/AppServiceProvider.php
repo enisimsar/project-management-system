@@ -16,6 +16,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        view()->composer('manager.parent', function ($view) {
+            $view->with([
+                'authUser' =>  Auth::guard('web')->user(),
+            ]);
+        });
+
         view()->composer('admin.parent', function ($view) {
             $view->with([
                 'authUser' =>  Auth::guard('admin')->user(),

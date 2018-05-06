@@ -17,13 +17,13 @@ class CreateNotCompletedProjectsStoredProcedure extends Migration
             CREATE PROCEDURE `not_completed_projects`(IN project_manager_id TEXT)
             BEGIN
                 IF (project_manager_id = 'ALL') THEN 
-                    SELECT * FROM projects WHERE projects.completed = FALSE;        
+                    SELECT * FROM projects WHERE projects.completed = FALSE AND projects.deleted_at is NULL;       
                 ELSE 
                     SELECT * FROM projects WHERE
                     projects.id IN (
                         SELECT project_manager_project.project_id FROM project_manager_project 
                         WHERE project_manager_project.project_manager_id = CAST(project_manager_id AS UNSIGNED)
-                    ) AND projects.completed = FALSE;
+                    ) AND projects.completed = FALSE AND projects.deleted_at is NULL;
                 END IF;
             END
         ";
