@@ -36,7 +36,7 @@ class ProjectController extends Controller
             $projects = $completed_projects->toBase()->merge($not_completed_projects);
         }
 
-        $projects = $projects->sortByDesc('id');
+        $projects = $projects->sortBy('id');
 
         $perPage = 25;
         $projects = new Paginator($projects, $perPage);

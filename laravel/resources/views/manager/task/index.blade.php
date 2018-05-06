@@ -38,7 +38,9 @@
               <tr>
                 <th class="id-column">ID</th>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Description</th>
+                <th>Started At</th>
+                <th>Duration</th>
                 <th class="three-button">Process</th>
               </tr>
             </thead>
@@ -47,12 +49,24 @@
                 <tr id="task-{{ $task->id }}">
                   <td>{{ $task->id }}</td>
                   <td>{{ $task->name }}</td>
-                  <td>{{ $task->email }}</td>
+                  <td>{{ $task->description }}</td>
+                  <td>{{ date('d.m.Y', strtotime($task->started_at)) }}</td>
+                  <td>{{ $task->duration }} Days</td>
                   <td>
                     <div class="btn-group">
-                      <a class="edit btn btn-primary btn-xs" href="{{ route("manager.task.show", $task->id) }}" title="Show">
-                        <i class="fa fa-search"></i>
-                      </a>
+                    <div class="btn-group">
+                     <button id="complete-task-{{ $task->id }}"
+                      class="complete btn btn-default btn-xs @if($task->isCompleted()) hidden @endif"
+                      complete-id="{{ $task->id }}" complete-name="{{ $task->name }}" is-complete="1"
+                      title="Completed">
+                      <i class="fa fa-square-o"></i>
+                    </button>
+                    <button id="uncomplete-task-{{ $task->id }}"
+                      class="complete btn btn-success btn-xs @unless($task->isCompleted()) hidden @endunless"
+                      complete-id="{{ $task->id }}" complete-name="{{ $task->name }}" is-complete="0"
+                      title="Not Completed">
+                      <i class="fa fa-check-square-o"></i>
+                    </button>
                       <a class="edit btn btn-warning btn-xs" href="{{ route("manager.task.edit", $task->id) }}" title="Edit">
                         <i class="fa fa-pencil"></i>
                       </a>
@@ -85,5 +99,10 @@
 @section('scripts')
   <script type="text/javascript">
   deleteItem("task", " will be removed the system?");
+  completeItem("task",
+      "manager",
+      "will be completed?",
+      "will not be completed?"
+    );
   </script>
 @endsection

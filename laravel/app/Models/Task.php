@@ -15,7 +15,7 @@ class Task extends Model
 
     protected $dates = ['created_at', 'updated_at', 'deleted_at', 'started_at'];
 
-    protected $fillable = ['project_id', 'decription', 'started_at', 'duration', 'completed'];
+    protected $fillable = ['project_id', 'name', 'description', 'started_at', 'duration', 'completed'];
 
     public function project()
     {
@@ -27,9 +27,18 @@ class Task extends Model
         return $this->belongsToMany('App\Models\Employee', 'employee_task');
     }
 
-    public static function toSelect($placeholder = null)
+    public static function toSelect($placeholder = null, $manager = null)
     {
-        $res = static::orderBy('name')->pluck('name', 'id');
+        if ($manager) {
+            $projects = $manager->projects()->where('completed', false)->get();
+            $project_ids = [];
+            foreach ($projects as $project) {
+                $project_ids[] = $project->id;
+            }
+            $res = static::where('completed', false)->whereIn('project_id', $project_ids)->orderBy('name')->pluck('name', 'id');
+        } else {
+            $res = static::orderBy('name')->pluck('name', 'id');
+        }
         return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
     }
 }

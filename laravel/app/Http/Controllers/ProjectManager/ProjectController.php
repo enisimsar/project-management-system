@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Task;
 use App\Models\ProjectManager as Manager;
 
 use DB;
@@ -27,16 +28,16 @@ class ProjectController extends Controller
         $filter = $request->filter;
         $projects = null;
         if ($filter == "-1") {
-            $projects = Project::hydrate(DB::select('call not_completed_projects(?)', [\Auth::guard('web')->user()->id]))->toBase();
+            $projects = Project::hydrate(DB::select('call not_completed_projects(?)', [(string)\Auth::guard('web')->user()->id]))->toBase();
         } elseif ($filter == "1") {
-            $projects = Project::hydrate(DB::select('call completed_projects(?)', [\Auth::guard('web')->user()->id]))->toBase();
+            $projects = Project::hydrate(DB::select('call completed_projects(?)', [(string) \Auth::guard('web')->user()->id]))->toBase();
         } else {
-            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', ['ALL']))->toBase();
-            $completed_projects = Project::hydrate(DB::select('call completed_projects(?)', ['ALL']));
+            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', [(string)\Auth::guard('web')->user()->id]))->toBase();
+            $completed_projects = Project::hydrate(DB::select('call completed_projects(?)', [(string)\Auth::guard('web')->user()->id]));
             $projects = $completed_projects->toBase()->merge($not_completed_projects);
         }
 
-        $projects = $projects->sortByDesc('id');
+        $projects = $projects->sortBy('id');
 
         $perPage = 25;
         $projects = new Paginator($projects, $perPage);

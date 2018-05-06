@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\Project;
 
 class TaskController extends Controller
 {
@@ -33,7 +34,8 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('manager.tasks.create');
+        $projects = Project::toSelect(\Auth::guard('web')->user(), $placeholder = 'Please, select a project.');
+        return view('manager.task.create', compact(['projects']));
     }
 
     /**
@@ -46,17 +48,20 @@ class TaskController extends Controller
     {
         $this->validate($request, [
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:project_managers',
-            'password' => 'required|min:6|confirmed',
+            'description' => 'required|max:255',
+            'started_at' => 'required',
+            'duration' => 'required|integer',
+            'project_id' => 'required|integer',
         ]);
         $task = Task::create([
             'name'          => $request->name,
-            'email'        => $request->email,
-            'password'      => bcrypt($request->password),
-            
+            'description' => $request->description,
+            'started_at' => $request->started_at,
+            'duration' => $request->duration,
+            'project_id' => $request->project_id
         ]);
         session_success("{$task->name} Task is successfully added.");
-        return redirect()->route('manager.task.show', $task->id);
+        return redirect()->route('manager.task.index');
     }
 
     /**
@@ -67,7 +72,6 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        return view('manager.task.show', compact(['task']));
     }
 
     /**
@@ -78,7 +82,8 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('manager.task.edit', compact(['task']));
+        $projects = Project::toSelect(\Auth::guard('web')->user(), $placeholder = 'Please, select a project.');
+        return view('manager.task.edit', compact(['task', 'projects']));
     }
 
     /**
@@ -91,15 +96,17 @@ class TaskController extends Controller
     public function update(Request $request, Task $task)
     {
         $this->validate($request, [
-            'name' => 'required|max:255',
-            'password' => 'required|min:6|confirmed',
+            'description' => 'required|max:255',
+            'started_at' => 'required',
+            'duration' => 'required',
         ]);
         $task->update([
-            'name'          => $request->name,
-            'password'      => bcrypt($request->password),
+            'description' => $request->description,
+            'started_at' => $request->started_at,
+            'duration' => $request->duration
         ]);
         session_success("{$task->name} Task is successfully updated.");
-        return redirect()->route('manager.task.show', $task->id);
+        return redirect()->route('manager.task.index');
     }
 
     /**
@@ -112,5 +119,11 @@ class TaskController extends Controller
     {
         $task->delete();
         return ['status' => 'success', 'message' => 'Successfully Deleted.'];
+    }
+
+    public function complete(Request $request, Task $task)
+    {
+        $task->completed($request->complete);
+        return $task;
     }
 }

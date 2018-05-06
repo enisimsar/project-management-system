@@ -10,6 +10,9 @@
     <li class="{{ set_active('*manager/task*') }}">
       <a href="{{ route('manager.task.index') }}"><i class="fa fa-tasks"></i> <span>Tasks</span></a>
     </li>
+    <li class="{{ set_active('*manager/employee*') }}">
+      <a href="{{ route('manager.employee.index') }}"><i class="fa fa-users"></i> <span>Employees</span></a>
+    </li>
   </ul>
   <!-- /.sidebar-menu -->
 </section>

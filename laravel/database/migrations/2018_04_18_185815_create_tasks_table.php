@@ -19,6 +19,7 @@ class CreateTasksTable extends Migration
             $table->foreign('project_id')
                 ->references('id')->on('projects')
                 ->onDelete('cascade');
+            $table->text('name');
             $table->text('description');
             $table->date('started_at');
             $table->integer('duration');

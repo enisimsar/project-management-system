@@ -26,4 +26,10 @@ class Project extends Model
     {
         return $this->hasMany('App\Models\Task');
     }
+
+    public static function toSelect($manager, $placeholder = null)
+    {
+        $res = $manager->projects()->where('completed', false)->orderBy('name')->pluck('name', 'id');
+        return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
+    }
 }
