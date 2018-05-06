@@ -34,7 +34,16 @@
     <!-- small box -->
     <div class="small-box bg-green">
       <div class="inner">
-        <h3>{{ App\Models\Task::count() }}</h3>
+        <?php
+
+        $project_ids = [];
+        foreach ($manager->projects as $project) {
+            $project_ids[] = $project->id;
+        }
+        $count = App\Models\Task::whereIn('project_id', $project_ids)->count();
+
+        ?>
+        <h3>{{ $count }}</h3>
         <p>Task</p>
       </div>
       <div class="icon">

@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Project APP</title>
+        <title>Laravel</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
@@ -65,9 +65,10 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
+        <div class="flex-center position-ref">
             @if (Route::has('manager.login'))
                 <div class="top-right links">
+                    <a href="{{ url('/projects') }}">Projects</a>
                     @if (Auth::check())
                         <a href="{{ url('/home') }}">Home</a>
                     @else
@@ -77,14 +78,30 @@
                     @endif
                 </div>
             @endif
-            <div class="content">
-                <div class="title m-b-md">
-                    Project APP
-                </div>
-
-                <div class="links">
-                    <a href="{{ url('/projects') }}">Show me All Projects</a>
-                    <a href="{{ url('/employees') }}">I'm an Employee</a>
+        </div>
+        <div class="container" style='margin:64px'>
+            <div class="row">
+                <div class="col-xs-12">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="id-column">ID</th>
+                            <th>Name</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @forelse ($employees as $employee)
+                            <tr id="employee-{{ $employee->id }}">
+                            <td>{{ $employee->id }}</td>
+                            <td>{{ $employee->name }}</td>
+                            </tr>
+                        @empty
+                            <tr>
+                            <td colspan="6">There is no employee in the system.</td>
+                            </tr>
+                        @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

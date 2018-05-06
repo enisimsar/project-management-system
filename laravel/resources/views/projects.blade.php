@@ -1,113 +1,17 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">Projects</div>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref">
-            @if (Route::has('manager.login'))
-                <div class="top-right links">
-                    <a href="{{ url('/projects') }}">Projects</a>
-                    @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ url('/manager/login') }}">Project Manager Login</a>
-                        <a href="{{ url('/admin/login') }}">Admin Login</a>
-                        <a href="{{ url('/admin/register') }}"> Admin Register</a>
-                    @endif
-                </div>
-            @endif
-        </div>
-        <div class="container" style='margin:64px'>
-            <div class="row">
-                <div class="col-xs-12">
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="id-column">ID</th>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Started_at</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @forelse ($projects as $project)
-                            <tr id="project-{{ $project->id }}">
-                            <td>{{ $project->id }}</td>
-                            <td>{{ $project->name }}</td>
-                            <td>{{ $project->description }}</td>
-                            <td>{{ $project->started_at }}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                            <td colspan="6">There is no Projects in the system.</td>
-                            </tr>
-                        @endforelse
-                        </tbody>
-                    </table>
+                <div class="panel-body">
+                  
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+@endsection

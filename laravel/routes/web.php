@@ -13,6 +13,7 @@
 
 Route::get('/', 'FrontEnd\FrontController@index');
 Route::get('/projects', 'FrontEnd\FrontController@getProjects');
+Route::get('/employees', 'FrontEnd\FrontController@getEmployees');
 
 
 Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
