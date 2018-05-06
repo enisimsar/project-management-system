@@ -81,7 +81,7 @@
               <th>Process</th>
             </tr>
           </thead>
-          <tbody id="manager-container">
+          <tbody id="task-container">
             @forelse ($project->tasks as $task)
             <tr id="task-{{ $task->id }}">
               <td>{{ $task->name }}</td>

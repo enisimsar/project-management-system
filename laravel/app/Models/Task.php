@@ -6,10 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\Base;
 use App\Traits\DatePicker;
 use App\Traits\Completed;
+use Gbrock\Table\Traits\Sortable;
 
 class Task extends Model
 {
-    use Base, DatePicker, Completed;
+    use Base, DatePicker, Completed, Sortable;
+
+    /**
+     * The attributes which may be used for sorting dynamically.
+     *
+     * @var array
+     */
+    protected $sortable = ['id', 'name', 'project_id', 'description', 'started_at', 'duration', 'completed'];
 
     protected $table = 'tasks';
 
@@ -26,6 +34,27 @@ class Task extends Model
     {
         return $this->belongsToMany('App\Models\Employee', 'employee_task');
     }
+
+    protected function getRenderedCompletedAttribute()
+    {
+        return $this->completed ? 'Yes' : 'No';
+    }
+
+    protected function getRenderedDurationAttribute()
+    {
+        return $this->duration.' Days';
+    }
+
+    protected function getRenderedCreatedAtAttribute()
+    {
+        return date('d.m.Y', strtotime($this->created_at));
+    }
+
+    protected function getRenderedStartedAtAttribute()
+    {
+        return date('d.m.Y', strtotime($this->started_at));
+    }
+
 
     public static function toSelect($placeholder = null, $manager = null)
     {

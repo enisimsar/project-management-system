@@ -56,7 +56,7 @@ class ProjectManagerController extends Controller
             
         ]);
         session_success("{$manager->name} Project Manager is successfully added.");
-        return redirect()->route('admin.manager.show', $manager->id);
+        return redirect()->route('admin.manager.index');
     }
 
     /**
@@ -99,7 +99,7 @@ class ProjectManagerController extends Controller
             'password'      => bcrypt($request->password),
         ]);
         session_success("{$manager->name} Project Manager is successfully updated.");
-        return redirect()->route('admin.manager.show', $manager->id);
+        return redirect()->route('admin.manager.index');
     }
 
     /**

@@ -34,4 +34,9 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }
+
+    public static function findByEmail($email)
+    {
+        return static::where('email', $email)->first();
+    }
 }

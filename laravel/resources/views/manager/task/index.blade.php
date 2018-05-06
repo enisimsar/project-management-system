@@ -41,6 +41,7 @@
                 <th>Description</th>
                 <th>Started At</th>
                 <th>Duration</th>
+                <th>Employee Count</th>
                 <th class="four-button">Process</th>
               </tr>
             </thead>
@@ -52,6 +53,7 @@
                   <td>{{ $task->description }}</td>
                   <td>{{ date('d.m.Y', strtotime($task->started_at)) }}</td>
                   <td>{{ $task->duration }} Days</td>
+                  <td>{{ $task->employees()->count() }}</td>
                   <td>
                     <div class="btn-group">
                     <div class="btn-group">

@@ -5,10 +5,18 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Traits\Completed;
+use Gbrock\Table\Traits\Sortable;
 
 class ProjectManager extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Sortable;
+
+    /**
+     * The attributes which may be used for sorting dynamically.
+     *
+     * @var array
+     */
+    protected $sortable = ['id','name', 'email'];
 
     /**
      * The attributes that are mass assignable.
@@ -37,5 +45,10 @@ class ProjectManager extends Authenticatable
     {
         $res = static::orderBy('name')->pluck('name', 'id');
         return $placeholder ? collect(['' => $placeholder])->union($res) : $res;
+    }
+
+    public static function findByEmail($email)
+    {
+        return static::where('email', $email)->first();
     }
 }

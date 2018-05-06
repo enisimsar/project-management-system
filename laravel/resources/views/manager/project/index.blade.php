@@ -42,6 +42,7 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Started At</th>
+                <th>Task Count</th>
                 <th class="two-button">Process</th>
               </tr>
             </thead>
@@ -52,6 +53,7 @@
                   <td>{{ $project->name }}</td>
                   <td>{{ $project->description }}</td>
                   <td>{{ date('d.m.Y', strtotime($project->started_at)) }}</td>
+                  <td>{{ $project->tasks()->count() }}</td>
                   <td>
                     <div class="btn-group">
                      <button id="complete-project-{{ $project->id }}"

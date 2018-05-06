@@ -22,7 +22,7 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $projects = \Auth::guard('web')->user()->projects();
+        $projects = \Auth::guard('web')->user()->projects()->get();
         $project_ids = [];
         foreach ($projects as $project) {
             $project_ids[] = $project->id;

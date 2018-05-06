@@ -19,17 +19,19 @@ class CreateAddProjectTrigger extends Migration
             ON projects
             FOR EACH ROW
             BEGIN
-                SELECT project_managers.id
-                FROM project_managers
-                LEFT JOIN project_manager_project 
-                ON project_managers.id = project_manager_project.project_manager_id
-                GROUP BY project_managers.id
-                ORDER BY COUNT(project_manager_project.project_id) ASC
-                LIMIT 1 INTO @pm_id;
-                INSERT INTO project_manager_project
-                (project_id, project_manager_id)
-                VALUES (NEW.id, @pm_id);
-            END
+                IF EXISTS(SELECT * FROM project_managers) THEN 
+                    SELECT project_managers.id
+                    FROM project_managers
+                    LEFT JOIN project_manager_project 
+                    ON project_managers.id = project_manager_project.project_manager_id
+                    GROUP BY project_managers.id
+                    ORDER BY COUNT(project_manager_project.project_id) ASC
+                    LIMIT 1 INTO @pm_id;
+                    INSERT INTO project_manager_project
+                    (project_id, project_manager_id)
+                    VALUES (NEW.id, @pm_id);
+                END IF;
+            END;
         ";
 
         DB::unprepared($trigger);

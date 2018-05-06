@@ -37,6 +37,7 @@
               <tr>
                 <th class="id-column">ID</th>
                 <th>Name</th>
+                <th>Task Count</th>
                 <th class="two-button">Process</th>
               </tr>
             </thead>
@@ -45,6 +46,7 @@
                 <tr id="employee-{{ $employee->id }}">
                   <td>{{ $employee->id }}</td>
                   <td>{{ $employee->name }}</td>
+                  <td>{{ $employee->tasks()->count() }}</td>
                   <td>
                     <div class="btn-group">
                       <a class="edit btn btn-primary btn-xs" href="{{ route("manager.employee.show", $employee->id) }}" title="Show">

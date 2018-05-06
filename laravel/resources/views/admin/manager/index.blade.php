@@ -39,7 +39,7 @@
                 <th class="id-column">ID</th>
                 <th>Name</th>
                 <th>Email</th>
-                <th class="three-button">Process</th>
+                <th class="two-button">Process</th>
               </tr>
             </thead>
             <tbody>
@@ -50,9 +50,6 @@
                   <td>{{ $manager->email }}</td>
                   <td>
                     <div class="btn-group">
-                      <a class="edit btn btn-primary btn-xs" href="{{ route("admin.manager.show", $manager->id) }}" title="Show">
-                        <i class="fa fa-search"></i>
-                      </a>
                       <a class="edit btn btn-warning btn-xs" href="{{ route("admin.manager.edit", $manager->id) }}" title="Edit">
                         <i class="fa fa-pencil"></i>
                       </a>

@@ -7,9 +7,18 @@ use App\Traits\Base;
 use App\Traits\DatePicker;
 use App\Traits\Completed;
 
+use Gbrock\Table\Traits\Sortable;
+
 class Project extends Model
 {
-    use Base, DatePicker, Completed;
+    use Base, DatePicker, Completed, Sortable;
+
+    /**
+     * The attributes which may be used for sorting dynamically.
+     *
+     * @var array
+     */
+    protected $sortable = ['id', 'name', 'description', 'started_at', 'completed', 'created_at'];
 
     protected $table = 'projects';
 
@@ -25,6 +34,21 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany('App\Models\Task');
+    }
+
+    protected function getRenderedCompletedAttribute()
+    {
+        return $this->completed ? 'Yes' : 'No';
+    }
+
+    protected function getRenderedCreatedAtAttribute()
+    {
+        return date('d.m.Y', strtotime($this->created_at));
+    }
+
+    protected function getRenderedStartedAtAttribute()
+    {
+        return date('d.m.Y', strtotime($this->started_at));
     }
 
     public static function toSelect($manager, $placeholder = null)

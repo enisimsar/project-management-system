@@ -8,10 +8,21 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Project App') }}</title>
+    <title>{{ $title ?? 'Project APP' }}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Plugin styles, Bootstrap etc. -->
+  <link rel="stylesheet" href="{{ admin_asset('css/plugins.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ admin_asset('css/AdminLTE.min.css') }}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ admin_asset('css/app.min.css') }}">
+
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic&amp;subset=latin-ext">
+
 
     <!-- Scripts -->
     <script>
@@ -54,6 +65,7 @@
                             <li><a href="{{ url('/admin/login') }}">Admin Login</a></li>
                             <li><a href="{{ url('/admin/register') }}"> Admin Register</a></li>
                         @else
+                            <li><a href="{{ url('/') }}">Home</a></li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>

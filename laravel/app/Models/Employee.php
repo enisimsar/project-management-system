@@ -5,9 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Base;
 
+use Gbrock\Table\Traits\Sortable;
+
 class Employee extends Model
 {
-    use Base;
+    use Base, Sortable;
+
+    /**
+     * The attributes which may be used for sorting dynamically.
+     *
+     * @var array
+     */
+    protected $sortable = ['id', 'name', 'created_at'];
 
     protected $table = 'employees';
 
