@@ -25,7 +25,6 @@ class CreateTasksTable extends Migration
             $table->integer('duration');
             $table->boolean('completed')->default(false);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

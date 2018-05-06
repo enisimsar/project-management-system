@@ -14,6 +14,13 @@ class ProjectManagerProjectController extends Controller
     {
         $project = Project::findOrFail($request->project_id);
         $manager = Manager::findOrFail($request->manager_id);
+
+        foreach ($manager->projects as $manager_project) {
+            if ($manager_project->id == $project->id) {
+                dd('This project manager has been already added to this project.');
+            }
+        }
+
         $project->project_managers()->attach($manager);
         return [
             'project_id' => $project->id,

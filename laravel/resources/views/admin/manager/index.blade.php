@@ -39,6 +39,7 @@
                 <th class="id-column">ID</th>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Project Count</th>
                 <th class="two-button">Process</th>
               </tr>
             </thead>
@@ -48,6 +49,7 @@
                   <td>{{ $manager->id }}</td>
                   <td>{{ $manager->name }}</td>
                   <td>{{ $manager->email }}</td>
+                  <td>{{ $manager->projects()->count() }}</td>
                   <td>
                     <div class="btn-group">
                       <a class="edit btn btn-warning btn-xs" href="{{ route("admin.manager.edit", $manager->id) }}" title="Edit">

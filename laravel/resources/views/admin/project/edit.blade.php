@@ -40,20 +40,16 @@
           {!! Form::text('name', null, ['class' => 'form-control', 'required' => 'required']) !!}
           <small class="text-danger">{{ $errors->first('name') }}</small>
         </div>
-        <div class="col-md-6 form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-          {!! Form::label('email', 'Email *') !!}
-          {!! Form::text('email', null, ['class' => 'form-control', 'required' => 'required', 'readonly' => 'true']) !!}
-          <small class="text-danger">{{ $errors->first('email') }}</small>
+        <div class="col-md-6 form-group{{ $errors->has('started_at') ? ' has-error' : '' }}">
+          {!! Form::label('started_at', 'Started At *') !!}
+          {!! Form::text('started_at', null, ['class' => 'form-control date-picker'])
+          !!}
+          <small class="text-danger">{{ $errors->first('started_at') }}</small>
         </div>
-        <div class="col-md-6 form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-          {!! Form::label('password', 'Password *') !!}
-          {!! Form::password('password', ['class' => 'form-control', 'required' => 'required']) !!}
-          <small class="text-danger">{{ $errors->first('password') }}</small>
-        </div>
-        <div class="col-md-6 form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-          {!! Form::label('password_confirmation', 'Confirm Password *') !!}
-          {!! Form::password('password_confirmation', ['class' => 'form-control', 'required' => 'required']) !!}
-          <small class="text-danger">{{ $errors->first('password_confirmation') }}</small>
+        <div class="col-md-12 form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+          {!! Form::label('description', 'Description *') !!}
+          {!! Form::textarea('description', null, ['class' => 'form-control', 'required' => 'required']) !!}
+          <small class="text-danger">{{ $errors->first('description ') }}</small>
         </div>
       </div>
       <!-- /.box-body -->

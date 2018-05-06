@@ -20,7 +20,6 @@ class CreateProjectsTable extends Migration
             $table->text('description')->nullable();
             $table->boolean('completed')->default(false);
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

@@ -21,7 +21,7 @@ class Task extends Model
 
     protected $table = 'tasks';
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'started_at'];
+    protected $dates = ['created_at', 'updated_at', 'started_at'];
 
     protected $fillable = ['project_id', 'name', 'description', 'started_at', 'duration', 'completed'];
 
@@ -55,6 +55,19 @@ class Task extends Model
         return date('d.m.Y', strtotime($this->started_at));
     }
 
+    public function setStartedAttribute($date)
+    {
+        return $date ?
+            $this->attributes['started_at'] = Carbon::createFromFormat('d.m.Y', $date)->toDateString() :
+            null;
+    }
+
+    public function getStartedAtAttribute()
+    {
+        return $this->attributes['started_at'] ?
+            date('d.m.Y', strtotime($this->attributes['started_at'])) :
+            null;
+    }
 
     public static function toSelect($placeholder = null, $manager = null)
     {

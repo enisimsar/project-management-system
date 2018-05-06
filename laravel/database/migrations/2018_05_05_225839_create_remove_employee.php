@@ -14,18 +14,14 @@ class CreateRemoveEmployee extends Migration
     public function up()
     {
         $trigger = "
-            CREATE TRIGGER remove_free_employee
+            CREATE TRIGGER remove_free_relations
             AFTER DELETE
-            ON employee_task
+            ON employees
             FOR EACH ROW
             BEGIN
-                DELETE FROM employees 
-                WHERE employees.id = OLD.employee_id AND NOT EXISTS (
-                    SELECT * 
-                    FROM employee_task
-                    WHERE employee_task.employee_id = OLD.employee_id
-                );
-            END
+                DELETE FROM employee_task 
+                WHERE employee_task.employee_id = OLD.id;
+            END;
         ";
 
         DB::unprepared($trigger);
@@ -38,6 +34,6 @@ class CreateRemoveEmployee extends Migration
      */
     public function down()
     {
-        DB::unprepared("DROP TRIGGER IF EXISTS remove_free_employee");
+        DB::unprepared("DROP TRIGGER IF EXISTS remove_free_relations");
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Task;
+use Carbon\Carbon;
 
 class EmployeeTaskController extends Controller
 {
@@ -14,8 +15,15 @@ class EmployeeTaskController extends Controller
         $employee = Employee::findOrFail($request->employee_id);
         $task = Task::findOrFail($request->task_id);
 
-        $start_date = $task->started_at;
-        $end_date = $task->started_at->addDays($task->duration);
+        foreach ($employee->tasks as $employee_task) {
+            if ($employee_task->id == $task->id) {
+                dd('This employee has been already added to this task.');
+            }
+        }
+
+
+        $start_date = Carbon::createFromFormat('d.m.Y', $task->started_at);
+        $end_date = $start_date->addDays($task->duration);
         $sql = "
             SELECT DISTINCT tasks.id, duration, started_at, DATE_ADD(started_at, INTERVAL duration DAY) as ended_at 
             FROM tasks JOIN employee_task 

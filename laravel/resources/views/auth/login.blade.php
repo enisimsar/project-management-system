@@ -54,9 +54,7 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('manager.password.request') }}">
-                                    Forgot Your Password?
-                                </a>
+                                <a class="btn btn-link" style="margin-top: 1px;" href="{{ route('manager.password.request') }}">Forgot Your Password?</a>
                             </div>
                         </div>
                     </form>

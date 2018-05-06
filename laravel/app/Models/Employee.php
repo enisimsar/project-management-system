@@ -20,13 +20,18 @@ class Employee extends Model
 
     protected $table = 'employees';
 
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at'];
 
     protected $fillable = ['name'];
 
     public function tasks()
     {
         return $this->belongsToMany('App\Models\Task', 'employee_task');
+    }
+
+    protected function getRenderedCreatedAtAttribute()
+    {
+        return date('d.m.Y', strtotime($this->created_at));
     }
 
     public static function toSelect($placeholder = null)
