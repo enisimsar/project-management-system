@@ -66,30 +66,7 @@
                             <li><a href="{{ url('/admin/register') }}"> Admin Register</a></li>
                         @else
                             <li><a href="{{ url('/') }}">Home</a></li>
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('manager.logout') }}"
-                                            onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                            Logout
-                                        </a>
-                                        @if (Auth::guard('admin')->check())
-                                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        @else
-                                            <form id="logout-form" action="{{ route('manager.logout') }}" method="POST" style="display: none;">
-                                                {{ csrf_field() }}
-                                            </form>
-                                        @endif
-                                    </li>
-                                </ul>
-                            </li>
+                            <li><a href="{{ url('/users/logout') }}">Log Out</a></li>
                         @endif
                     </ul>
                 </div>
