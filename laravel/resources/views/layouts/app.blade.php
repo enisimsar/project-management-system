@@ -78,10 +78,15 @@
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
-
-                                        <form id="logout-form" action="{{ route('manager.logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
+                                        @if (Auth::guard('admin')->check())
+                                            <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        @else
+                                            <form id="logout-form" action="{{ route('manager.logout') }}" method="POST" style="display: none;">
+                                                {{ csrf_field() }}
+                                            </form>
+                                        @endif
                                     </li>
                                 </ul>
                             </li>
