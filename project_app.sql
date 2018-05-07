@@ -197,7 +197,7 @@ delimiter ;
 -- ----------------------------
 DROP TRIGGER IF EXISTS `remove_free_relations`;
 delimiter ;;
-CREATE TRIGGER `remove_free_relations` AFTER DELETE ON `employees` FOR EACH ROW BEGIN
+CREATE TRIGGER `remove_free_relations` BEFORE DELETE ON `employees` FOR EACH ROW BEGIN
                 DELETE FROM employee_task 
                 WHERE employee_task.employee_id = OLD.id;
             END
