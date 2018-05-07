@@ -60,13 +60,16 @@
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
-                        @if (Auth::guest())
+                        @if (Auth::guard('web')->check())
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('/users/logout') }}">Log Out</a></li>
+                        @elseif (Auth::guard('admin')->check())
+                            <li><a href="{{ url('/') }}">Home</a></li>
+                            <li><a href="{{ url('/users/logout') }}">Log Out</a></li>
+                        @else
                             <li><a href="{{ url('/manager/login') }}">Project Manager Login</a></li>
                             <li><a href="{{ url('/admin/login') }}">Admin Login</a></li>
                             <li><a href="{{ url('/admin/register') }}"> Admin Register</a></li>
-                        @else
-                            <li><a href="{{ url('/') }}">Home</a></li>
-                            <li><a href="{{ url('/users/logout') }}">Log Out</a></li>
                         @endif
                     </ul>
                 </div>
