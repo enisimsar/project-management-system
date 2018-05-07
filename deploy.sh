@@ -8,11 +8,11 @@ echo "** RUN DOCKER COMPOSE **"
 docker-compose down
 docker-compose up -d
 
-echo "**** KEY GENERATION ****"
-docker exec project_app php artisan key:generate
-
 echo "*** INSTALL COMPOSERS ***"
 docker exec project_app composer install
+
+echo "**** KEY GENERATION ****"
+docker exec project_app php artisan key:generate
 
 echo "*** MIGRATE DATABASE  ***"
 docker exec project_app php artisan migrate
