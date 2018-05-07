@@ -1,4 +1,10 @@
-# web-based-ui
+# Project Management System
+
+## Prerequisite
+
+Please, download Docker and Docker Compose to your computer.
+
+## Deployment
 
 Customize the .env-example file.
 

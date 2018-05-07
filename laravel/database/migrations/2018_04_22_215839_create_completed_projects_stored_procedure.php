@@ -25,7 +25,7 @@ class CreateCompletedProjectsStoredProcedure extends Migration
                         WHERE project_manager_project.project_manager_id = CAST(project_manager_id AS UNSIGNED)
                     ) AND projects.completed = TRUE;
                 END IF;
-            END
+            END;
         ";
 
         DB::unprepared($procedure);

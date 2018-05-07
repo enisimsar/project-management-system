@@ -14,6 +14,9 @@ docker exec project_app php artisan key:generate
 echo "*** INSTALL COMPOSERS ***"
 docker exec project_app composer install
 
+echo "*** MIGRATE DATABASE  ***"
+docker exec project_app php artisan migrate
+
 echo "***** SET SYMBOLINK  ****"
 docker exec project_app php artisan storage:link
 

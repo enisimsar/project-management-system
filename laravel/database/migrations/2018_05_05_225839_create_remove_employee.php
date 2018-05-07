@@ -15,7 +15,7 @@ class CreateRemoveEmployee extends Migration
     {
         $trigger = "
             CREATE TRIGGER remove_free_relations
-            AFTER DELETE
+            BEFORE DELETE
             ON employees
             FOR EACH ROW
             BEGIN
