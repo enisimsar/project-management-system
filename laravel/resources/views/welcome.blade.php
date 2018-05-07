@@ -72,10 +72,8 @@
                         <a href="{{ url('/manager') }}">Manager Dashboard</a>
                         <a href="{{ url('/users/logout') }}">Log Out</a>
                     @elseif (Auth::guard('admin')->check())
-                    <p class="text-success">
                         <a href="{{ url('/admin') }}">Admin Dashboard</a>
                         <a href="{{ url('/users/logout') }}">Log Out</a>
-                    </p>
                     @else
                         <a href="{{ url('/manager/login') }}">Project Manager Login</a>
                         <a href="{{ url('/admin/login') }}">Admin Login</a>
