@@ -18,8 +18,6 @@ Route::resource('/employee', 'Admin\EmployeeController');
 Route::post('/manager-project', 'Admin\ProjectManagerProjectController@store')->name('manager.project.store');
 Route::delete('/manager-project', 'Admin\ProjectManagerProjectController@destroy')->name('manager.project.destroy');
 
-Route::put('/project/{project}/complete', 'Admin\ProjectController@complete');
-
 Route::get('/register', 'Auth\AdminRegisterController@showRegistrationForm')->name('register');
 Route::post('/register', 'Auth\AdminRegisterController@register')->name('register.submit');
 Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('login');

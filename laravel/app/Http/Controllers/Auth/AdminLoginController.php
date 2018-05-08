@@ -28,7 +28,7 @@ class AdminLoginController extends Controller
         ]);
 
         $admin = Admin::findByEmail($request->email);
-        
+
         // Attempt to log the user in
         if ($admin && password_verify($request->password, $admin->password)) {
             Auth::guard('admin')->login($admin, $request->has('remember'));

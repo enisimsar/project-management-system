@@ -27,13 +27,13 @@ class ProjectController extends Controller
         $filter = $request->filter;
         $projects = null;
         if ($filter == "-1") {
-            $projects = Project::hydrate(DB::select('call not_completed_projects(?)', ['ALL']))->toBase();
+            $projects = Project::hydrate(DB::select('call not_completed_projects(?)', ['ALL']));
         } elseif ($filter == "1") {
-            $projects = Project::hydrate(DB::select('call completed_projects(?)', ['ALL']))->toBase();
+            $projects = Project::hydrate(DB::select('call completed_projects(?)', ['ALL']));
         } else {
-            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', ['ALL']))->toBase();
+            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', ['ALL']));
             $completed_projects = Project::hydrate(DB::select('call completed_projects(?)', ['ALL']));
-            $projects = $completed_projects->toBase()->merge($not_completed_projects);
+            $projects = $completed_projects->merge($not_completed_projects);
         }
 
         $projects = $projects->sortBy('id');

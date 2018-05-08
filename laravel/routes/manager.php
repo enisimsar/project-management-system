@@ -15,10 +15,6 @@ Route::resource('/task', 'ProjectManager\TaskController');
 Route::resource('/project', 'ProjectManager\ProjectController');
 Route::resource('/employee', 'ProjectManager\EmployeeController');
 
-Route::put('/project/{project}/complete', 'ProjectManager\ProjectController@complete');
-
-Route::put('/task/{task}/complete', 'ProjectManager\TaskController@complete');
-
 Route::post('/project-task', 'ProjectManager\ProjectTaskController@store')->name('project.task.store');
 Route::delete('/project-task', 'ProjectManager\ProjectTaskController@destroy')->name('project.task.destroy');
 

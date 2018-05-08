@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\Project;
 use App\Models\Employee;
+use Carbon\Carbon;
 
 class TaskController extends Controller
 {
@@ -60,7 +61,7 @@ class TaskController extends Controller
             'project_id' => 'required|integer',
         ]);
         $task = Task::create([
-            'name'          => $request->name,
+            'name' => $request->name,
             'description' => $request->description,
             'started_at' => $request->started_at,
             'duration' => $request->duration,
@@ -109,6 +110,24 @@ class TaskController extends Controller
             'started_at' => 'required',
             'duration' => 'required',
         ]);
+        $employees = $task->employees;
+        $start_date = Carbon::createFromFormat('d.m.Y', $request->started_at);
+        $end_date = $start_date->addDays($request->duration);
+        foreach ($employees as $employee) {
+            $sql = "
+            SELECT DISTINCT tasks.id, duration, started_at, DATE_ADD(started_at, INTERVAL duration DAY) as ended_at 
+            FROM tasks JOIN employee_task 
+            ON tasks.id = employee_task.task_id
+            WHERE employee_task.employee_id = ? 
+            AND ((tasks.started_at BETWEEN ? AND ?)
+            OR (? BETWEEN tasks.started_at AND DATE_ADD(tasks.started_at, INTERVAL duration DAY)));";
+
+            $tasks = \DB::select($sql, [$employee->id, $start_date, $end_date, $start_date]);
+            if (count($tasks) > 0) {
+                session_error("{$employee->name} is busy with another task in this period.");
+                return back();
+            }
+        }
         $task->update([
             'description' => $request->description,
             'started_at' => $request->started_at,

@@ -42,8 +42,9 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Started At</th>
+                <th>Completed</th>
                 <th>Task Count</th>
-                <th class="two-button">Process</th>
+                <th class="one-button">Process</th>
               </tr>
             </thead>
             <tbody>
@@ -53,21 +54,10 @@
                   <td>{{ $project->name }}</td>
                   <td>{{ $project->description }}</td>
                   <td>{{ date('d.m.Y', strtotime($project->started_at)) }}</td>
+                  <td>{{ $project->completed }}</td>
                   <td>{{ $project->tasks()->count() }}</td>
                   <td>
                     <div class="btn-group">
-                     <button id="complete-project-{{ $project->id }}"
-                      class="complete btn btn-default btn-xs @if($project->isCompleted()) hidden @endif"
-                      complete-id="{{ $project->id }}" complete-name="{{ $project->name }}" is-complete="1"
-                      title="Completed">
-                      <i class="fa fa-square-o"></i>
-                    </button>
-                    <button id="uncomplete-project-{{ $project->id }}"
-                      class="complete btn btn-success btn-xs @unless($project->isCompleted()) hidden @endunless"
-                      complete-id="{{ $project->id }}" complete-name="{{ $project->name }}" is-complete="0"
-                      title="Not Completed">
-                      <i class="fa fa-check-square-o"></i>
-                    </button>
                       <a class="edit btn btn-primary btn-xs" href="{{ route("manager.project.show", $project->id) }}" title="Show">
                         <i class="fa fa-search"></i>
                       </a>

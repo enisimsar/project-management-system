@@ -41,8 +41,9 @@
                 <th>Description</th>
                 <th>Started At</th>
                 <th>Duration</th>
+                <th>Completed</th>
                 <th>Employee Count</th>
-                <th class="four-button">Process</th>
+                <th class="three-button">Process</th>
               </tr>
             </thead>
             <tbody>
@@ -53,22 +54,10 @@
                   <td>{{ $task->description }}</td>
                   <td>{{ date('d.m.Y', strtotime($task->started_at)) }}</td>
                   <td>{{ $task->duration }} Days</td>
+                  <td>{{ $task->completed }}</td>
                   <td>{{ $task->employees()->count() }}</td>
                   <td>
                     <div class="btn-group">
-                    <div class="btn-group">
-                     <button id="complete-task-{{ $task->id }}"
-                      class="complete btn btn-default btn-xs @if($task->isCompleted()) hidden @endif"
-                      complete-id="{{ $task->id }}" complete-name="{{ $task->name }}" is-complete="1"
-                      title="Completed">
-                      <i class="fa fa-square-o"></i>
-                    </button>
-                    <button id="uncomplete-task-{{ $task->id }}"
-                      class="complete btn btn-success btn-xs @unless($task->isCompleted()) hidden @endunless"
-                      complete-id="{{ $task->id }}" complete-name="{{ $task->name }}" is-complete="0"
-                      title="Not Completed">
-                      <i class="fa fa-check-square-o"></i>
-                    </button>
                     <a class="edit btn btn-primary btn-xs" href="{{ route("manager.task.show", $task->id) }}" title="Show">
                         <i class="fa fa-search"></i>
                       </a>
@@ -84,7 +73,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="6">There is no Task in the system.</td>
+                  <td colspan="8">There is no Task in the system.</td>
                 </tr>
               @endforelse
             </tbody>

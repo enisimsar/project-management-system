@@ -21,16 +21,16 @@ class EmployeeTaskController extends Controller
             }
         }
 
-
         $start_date = Carbon::createFromFormat('d.m.Y', $task->started_at);
         $end_date = $start_date->addDays($task->duration);
         $sql = "
             SELECT DISTINCT tasks.id, duration, started_at, DATE_ADD(started_at, INTERVAL duration DAY) as ended_at 
             FROM tasks JOIN employee_task 
             ON tasks.id = employee_task.task_id
-            AND employee_task.employee_id = ? 
+            WHERE employee_task.employee_id = ? 
             AND ((tasks.started_at BETWEEN ? AND ?)
-            OR (? BETWEEN tasks.started_at AND DATE_ADD(tasks.started_at, INTERVAL duration DAY)));";
+            OR (? BETWEEN tasks.started_at AND DATE_ADD(tasks.started_at, INTERVAL duration DAY)));
+        ";
 
         $tasks = \DB::select($sql, [$employee->id, $start_date, $end_date, $start_date]);
         if (count($tasks) > 0) {

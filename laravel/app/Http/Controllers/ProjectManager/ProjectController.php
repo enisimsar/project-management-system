@@ -32,9 +32,9 @@ class ProjectController extends Controller
         } elseif ($filter == "1") {
             $projects = Project::hydrate(DB::select('call completed_projects(?)', [(string) \Auth::guard('web')->user()->id]))->toBase();
         } else {
-            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', [(string)\Auth::guard('web')->user()->id]))->toBase();
+            $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', [(string)\Auth::guard('web')->user()->id]));
             $completed_projects = Project::hydrate(DB::select('call completed_projects(?)', [(string)\Auth::guard('web')->user()->id]));
-            $projects = $completed_projects->toBase()->merge($not_completed_projects);
+            $projects = $completed_projects->merge($not_completed_projects);
         }
 
         $projects = $projects->sortBy('id');

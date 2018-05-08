@@ -11,9 +11,6 @@ docker-compose up -d
 echo "*** INSTALL COMPOSERS ***"
 docker exec project_app composer install
 
-echo "**** KEY GENERATION ****"
-docker exec project_app php artisan key:generate
-
 echo "*** MIGRATE DATABASE  ***"
 docker exec project_app php artisan migrate
 

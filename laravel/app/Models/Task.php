@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\Base;
 use App\Traits\DatePicker;
-use App\Traits\Completed;
 use Gbrock\Table\Traits\Sortable;
+use Carbon\Carbon;
 
 class Task extends Model
 {
-    use Base, DatePicker, Completed, Sortable;
+    use Base, DatePicker, Sortable;
 
     /**
      * The attributes which may be used for sorting dynamically.
@@ -37,7 +37,9 @@ class Task extends Model
 
     protected function getRenderedCompletedAttribute()
     {
-        return $this->completed ? 'Yes' : 'No';
+        $ended_at = (new Carbon($this->started_at))->addDays($this->duration);
+
+        return $ended_at < Carbon::now() ? 'Yes' : 'No';
     }
 
     protected function getRenderedDurationAttribute()
@@ -67,6 +69,13 @@ class Task extends Model
         return $this->attributes['started_at'] ?
             date('d.m.Y', strtotime($this->attributes['started_at'])) :
             null;
+    }
+
+    public function getCompletedAttribute()
+    {
+        $ended_at = (new Carbon($this->started_at))->addDays($this->duration);
+
+        return $ended_at < Carbon::now() ? 'Yes' : 'No';
     }
 
     public static function toSelect($placeholder = null, $manager = null)
