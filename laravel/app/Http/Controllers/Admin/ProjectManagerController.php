@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ProjectManager as Manager;
+use App\Models\Project;
+use DB;
 
 class ProjectManagerController extends Controller
 {
@@ -67,7 +69,10 @@ class ProjectManagerController extends Controller
      */
     public function show(Manager $manager)
     {
-        return view('admin.manager.show', compact(['manager']));
+        $completed_projects = Project::hydrate(DB::select('call completed_projects(?)', [$manager->id]))->sortBy('id')->toArray();
+        $not_completed_projects = Project::hydrate(DB::select('call not_completed_projects(?)', [$manager->id]))->sortBy('id')->toArray();
+
+        return view('admin.manager.show', compact(['manager', 'completed_projects', 'not_completed_projects']));
     }
 
     /**

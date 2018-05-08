@@ -40,7 +40,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Project Count</th>
-                <th class="two-button">Process</th>
+                <th class="three-button">Process</th>
               </tr>
             </thead>
             <tbody>
@@ -52,6 +52,9 @@
                   <td>{{ $manager->projects()->count() }}</td>
                   <td>
                     <div class="btn-group">
+                      <a class="edit btn btn-primary btn-xs" href="{{ route("admin.manager.show", $manager->id) }}" title="Show">
+                        <i class="fa fa-search"></i>
+                      </a>
                       <a class="edit btn btn-warning btn-xs" href="{{ route("admin.manager.edit", $manager->id) }}" title="Edit">
                         <i class="fa fa-pencil"></i>
                       </a>
