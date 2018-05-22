@@ -22,7 +22,7 @@ class EmployeeTaskController extends Controller
         }
 
         $start_date = Carbon::createFromFormat('d.m.Y', $task->started_at);
-        $end_date = $start_date->addDays($task->duration);
+        $end_date = $start_date->copy()->addDays($task->duration);
         $sql = "
             SELECT DISTINCT tasks.id, duration, started_at, DATE_ADD(started_at, INTERVAL duration DAY) as ended_at 
             FROM tasks JOIN employee_task 
